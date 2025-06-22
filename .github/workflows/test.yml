@@ -1,0 +1,62 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and Test on ${{ matrix.os }} (${{ matrix.arch }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          # arm
+          - os: macos-latest
+            arch: aarch64
+          - os: macos-13
+            arch: x86_64
+          - os: ubuntu-24.04
+            arch: aarch64
+          # x86
+          - os: ubuntu-latest
+            arch: x86_64
+          - os: windows-latest
+            arch: x86_64
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Zig
+      uses: mlugg/setup-zig@v1
+      with:
+        version: 0.14.0
+
+
+    - name: Setup FFmpeg (macos)
+      if: runner.os == 'macOS'
+      run: brew install ffmpeg pkgconf coreutils
+
+    - name: Setup FFmpeg (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libswresample-dev pkg-config
+
+    - name: Setup FFmpeg (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        choco install -y ffmpeg-shared
+        set INCLUDE=%INCLUDE%;"C:\ProgramData\chocolatey\lib\ffmpeg-shared\tools\ffmpeg-7.1-full_build-shared\include"
+        set LIB=%LIB%;"C:\ProgramData\chocolatey\lib\ffmpeg-shared\tools\ffmpeg-7.1-full_build-shared\lib"
+
+    - name: Test
+      run: |
+        zig build --release=fast test
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: test_output-${{ matrix.os }}-${{ matrix.arch }}
+        path: test_output/
