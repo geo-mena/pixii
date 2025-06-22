@@ -1,15 +1,12 @@
 <div align="center">
 
 # 🎨 glyph
-> **Convert images and video to ASCII art**
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/user/glyph)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)](https://github.com/user/glyph)
 
 </div>
-
----
 
 ## 📋 Table of Contents
 - [🔧 Installation](#-installation)
@@ -19,16 +16,14 @@
 - [🎬 Video Examples](#-video-examples)
 - [💡 Tips](#-tips)
 
----
-
 ## 🔧 Installation
 
-### 📦 Homebrew (Recommended)
+### Homebrew (Recommended)
 ```bash
 brew install glyph
 ```
 
-### 🏗️ Build from Source
+### Build from Source
 ```bash
 # Optimized build
 zig build -Doptimize=ReleaseFast
@@ -37,13 +32,13 @@ zig build -Doptimize=ReleaseFast
 zig build run -Doptimize=ReleaseFast -- [options]
 ```
 
-> **📍 Executable location:** `./zig-out/bin/glyph`
+> **Executable location:** `./zig-out/bin/glyph`
 
-### 🎥 Video Dependencies
-> **⚠️ Note:** Only needed for video processing (will be optional in the future)
+### Video Dependencies
+> **Note:** Only needed for video processing (will be optional in the future)
 
 <details>
-<summary><strong>🐧 Linux</strong></summary>
+<summary><strong>Linux</strong></summary>
 
 ```bash
 sudo apt-get install libavutil-dev libavformat-dev libavcodec-dev libswscale-dev
@@ -51,7 +46,7 @@ sudo apt-get install libavutil-dev libavformat-dev libavcodec-dev libswscale-dev
 </details>
 
 <details>
-<summary><strong>🍎 macOS</strong></summary>
+<summary><strong>macOS</strong></summary>
 
 ```bash
 brew install ffmpeg pkgconf
@@ -59,14 +54,12 @@ brew install ffmpeg pkgconf
 </details>
 
 <details>
-<summary><strong>🪟 Windows</strong></summary>
+<summary><strong>Windows</strong></summary>
 
 ```bash
 choco install ffmpeg-shared
 ```
 </details>
-
----
 
 ## ⚡ Basic Usage
 
@@ -74,13 +67,11 @@ choco install ffmpeg-shared
 glyph -i <input_file> -o <output_file> [options]
 ```
 
-> **💡 Tip:** To render directly on terminal, omit the `-o` option
-
----
+> **Tip:** To render directly on terminal, omit the `-o` option
 
 ## 🎯 Options
 
-### 📋 Basic Options
+### Basic Options
 | Option | Description | Default |
 |--------|-------------|---------|
 | `-h, --help` | Show help | - |
@@ -92,7 +83,7 @@ glyph -i <input_file> -o <output_file> [options]
 | `-e, --detect_edges` | Enable edge detection | Disabled |
 | `-b, --brightness_boost <float>` | Adjust brightness | `1.0` |
 
-### ⚙️ Advanced Options
+### Advanced Options
 | Option | Description | Default |
 |--------|-------------|---------|
 | `--full_characters` | Use all ASCII characters | Limited |
@@ -105,18 +96,16 @@ glyph -i <input_file> -o <output_file> [options]
 | `--stretched` | Resize media to fit terminal window | Original size |
 | `-f, --frame_rate` | Target frame rate for video output | Input FPS |
 
-### 🔍 Edge Detection Filters
+### Edge Detection Filters
 | Option | Description | Default |
 |--------|-------------|---------|
 | `--sigma1 <float>` | Sigma1 value for DoG filter | `0.3` |
 | `--sigma2 <float>` | Sigma2 value for DoG filter | `1.0` |
 | `--dither floydstein` | Dithering algorithm | Disabled |
 
----
-
 ## 📸 Image Examples
 
-### 🔰 Basic Usage
+### Basic Usage
 ```bash
 # Basic image
 glyph -i input.jpg -o output.png
@@ -125,12 +114,12 @@ glyph -i input.jpg -o output.png
 glyph -i input.jpg -o output.txt
 ```
 
-### 🌈 With Color
+### With Color
 ```bash
 glyph -i input.png -o output.png -c
 ```
 
-### 🎨 Advanced Configuration
+### Advanced Configuration
 ```bash
 # With edge detection, color and custom scale
 glyph -i input.jpeg -o output.png -s 4 -e -c
@@ -139,56 +128,44 @@ glyph -i input.jpeg -o output.png -s 4 -e -c
 glyph -i "https://w.wallhaven.cc/full/p9/wallhaven-p9gr2p.jpg" -o output.png -e -c -b 1.5
 ```
 
-### 💻 Terminal Display
+### Terminal Display
 ```bash
 # Render directly on terminal
 glyph -i "https://w.wallhaven.cc/full/p9/wallhaven-p9gr2p.jpg" -e -c -b 1.5
 ```
 
----
-
 ## 🎬 Video Examples
 
-### 🎥 Basic Video
+### Basic Video
 ```bash
 # Process video with codec and audio
 glyph -i /path/to/video.mp4 -o ascii.mp4 --codec hevc_nvenc --keep_audio
 ```
 
-### 📺 Terminal Playback
+### Terminal Playback
 ```bash
 # Video stretched to fit terminal
 glyph -i /path/to/video.mp4 --stretched -c
 ```
 
-### ⚡ Encoding Configuration
+### Encoding Configuration
 ```bash
 # With custom ffmpeg options
 glyph -i /path/to/video.mp4 -o ascii.mp4 -c --codec libx264 --keep_audio -- -preset fast -crf 20
 ```
 
----
-
 ## 💡 Tips
 
-### 📝 Output Formats
+### Output Formats
 - **Images:** Use `.png` for better compatibility
 - **Text:** Use `.txt` for plain text files
 - **Video:** Supports multiple formats
 
-### 🖥️ Compatibility
+### Compatibility
 - **Windows:** Use short arguments (`-i`, `-o`, etc.) recommended
 - **URLs:** Only supported for images, not for videos
 
-### 🎯 Recommendations
+### Recommendations
 - Experiment with `-s` to adjust detail
 - Combine `-e` and `-c` for better visual results
 - Use `-b` to adjust contrast in dark images
-
----
-
-<div align="center">
-
-**✨ Enjoy creating ASCII art! ✨**
-
-</div>
