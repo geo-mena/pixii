@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎨 glyph - ascii from media
+## 🎨 glyph -  convert images & video to ascii
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/user/glyph)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
